@@ -71,7 +71,7 @@ echo.
 echo Wrote launcher script:
 echo   %OUTFILE%
 echo.
-echo You can now double-click makeCSV.bat to generate an importable .csv from the template .xlsx
+echo You can now double-click GENERATE_CSV.bat to generate an importable .csv from the template .xlsx
 echo.
 echo It will use find and use all "import....xlsx" files in this folder
 pause
