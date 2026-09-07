@@ -2,11 +2,11 @@
 setlocal enabledelayedexpansion
 
 rem ============================================================
-rem  find_rscript.bat
+rem  install.bat
 rem
 rem  Double-click to run. Locates Rscript.exe on this machine
-rem  and writes "run_analysis.bat" in this same folder, which
-rem  will launch analysis.R via Rscript.
+rem  and writes "GENERATE_CSV.bat" in this same folder, which
+rem  will launch makeCSV.R via Rscript.
 rem
 rem  Search order:
 rem    1) HKLM\SOFTWARE\R-core\R          (64-bit R)
