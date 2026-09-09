@@ -20,5 +20,10 @@ The output file names will match the input names. The original template is not d
 
 
 
+##v1.0.1:
+Fixed bug where Sample type import failed with unset Sample names
+
+
+
 
 

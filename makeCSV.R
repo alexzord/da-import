@@ -24,6 +24,7 @@ read_template <- function(sheet, file=exc){
   rownames(dat) <- dat[,1]
   dat <- dat[,-1]
   dat <- melt(t(as.matrix(dat))) %>%
+    mutate(value=ifelse((value %in% c("S=", "") | is.na(value)), NA, value)) %>%
     mutate(Coor=paste0(Var2,Var1),Value=value) %>%
     select(Coor, Value) %>%
     mutate(Value=ifelse(startsWith(Value, "S="), "", Value))
@@ -44,8 +45,10 @@ tryCatch(
   reduce(left_join, by="Coor")},
   error = function(e){stop(sprintf("Error reading %s - check sheets and formatting", exc))})
 
-#Remove null samples
-rawin[which(rawin$Sample==""),] <- ""
+#Remove null data
+rawin <- rawin %>%
+  mutate(across(everything(), ~ ifelse(is.na(.x), "", .x)))
+  
 
 #Check correct typing
 invalid_types <- unique(rawin$Types[!rawin$Types %in% c("U", "S", "P", "N", "")])
@@ -85,6 +88,7 @@ clean <-
                         Types=="S" ~ "STANDARD",
                         Types=="P" ~ "POSITIVE_CONTROL",
                         Types=="N" ~ "NTC")) %>%
+  mutate(Types=ifelse(Samples=="", "", Types)) %>%
   mutate(Well=as.numeric(rownames(.))-1,
          Reporter=ifelse(Samples=="", "", "SYBR"),
          Quencher="") %>%
